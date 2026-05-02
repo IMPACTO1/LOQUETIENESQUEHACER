@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sabes lo que tienes que hacer… ¿por qué no lo haces?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:   #1C1C2E;
+  --teal:  #0F4C5C;
+  --gold:  #A07820;
+  --goldl: #F7F2E0;
+  --cream: #FDFCF8;
+  --gray:  #6B6878;
+  --lgray: #EEECEA;
+  --white: #FFFFFF;
+  --rust:  #7A281A;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ── TIPOGRAFÍA ── */
+h1, h2, h3 { font-family: 'Playfair Display', serif; line-height: 1.15; }
+p { line-height: 1.8; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: var(--ink);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(160,120,32,.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 350px; height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(15,76,92,.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-left {
+  padding: 80px 60px 80px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-family: 'Lato', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(160,120,32,.4);
+  padding: 6px 16px;
+  border-radius: 2px;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp .8s .1s forwards;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 8px;
+  opacity: 0;
+  animation: fadeUp .8s .2s forwards;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  color: rgba(255,255,255,.55);
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fadeUp .8s .35s forwards;
+}
+
+.hero-desc {
+  font-size: 15px;
+  color: rgba(255,255,255,.7);
+  line-height: 1.8;
+  margin-bottom: 48px;
+  max-width: 460px;
+  opacity: 0;
+  animation: fadeUp .8s .5s forwards;
+}
+
+.hero-desc strong { color: var(--white); font-weight: 700; }
+
+.cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  animation: fadeUp .8s .65s forwards;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--ink);
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: .04em;
+  padding: 18px 36px;
+  text-decoration: none;
+  border-radius: 3px;
+  transition: background .2s, transform .15s;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover { background: #C09030; transform: translateY(-2px); }
+
+.cta-note {
+  font-size: 12px;
+  color: rgba(255,255,255,.35);
+  text-align: center;
+  letter-spacing: .03em;
+}
+
+.hero-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 80px 80px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.book-mockup {
+  position: relative;
+  opacity: 0;
+  animation: fadeUp .9s .4s forwards;
+}
+
+.book-cover {
+  width: 280px;
+  background: var(--teal);
+  border-radius: 4px 8px 8px 4px;
+  padding: 48px 36px;
+  box-shadow:
+    -6px 0 0 rgba(0,0,0,.4),
+    -8px 6px 24px rgba(0,0,0,.6),
+    20px 30px 60px rgba(0,0,0,.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.book-cover::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--gold);
+}
+
+.book-cover::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--gold);
+}
+
+.book-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 24px;
+  font-family: 'Lato', sans-serif;
+}
+
+.book-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.book-title em { color: var(--gold); font-style: italic; }
+
+.book-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,.55);
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.book-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin-bottom: 20px;
+}
+
+.book-includes {
+  font-size: 10px;
+  color: rgba(255,255,255,.45);
+  font-family: 'Lato', sans-serif;
+  letter-spacing: .06em;
+  line-height: 1.8;
+}
+
+.book-badge {
+  position: absolute;
+  top: -16px; right: -16px;
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(160,120,32,.5);
+}
+
+.book-badge span:first-child {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
+}
+
+.book-badge span:last-child {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--ink);
+  font-family: 'Playfair Display', serif;
+  line-height: 1;
+}
+
+/* ── DOLOR ── */
+.pain {
+  background: var(--white);
+  padding: 100px 80px;
+  text-align: center;
+  position: relative;
+}
+
+.pain::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.pain h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 900;
+  color: var(--ink);
+  max-width: 760px;
+  margin: 0 auto 24px;
+}
+
+.pain h2 em { font-style: italic; color: var(--teal); }
+
+.pain-lead {
+  font-size: 17px;
+  color: var(--gray);
+  max-width: 600px;
+  margin: 0 auto 60px;
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+}
+
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  max-width: 960px;
+  margin: 0 auto 60px;
+  background: var(--lgray);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pain-item {
+  background: var(--cream);
+  padding: 36px 32px;
+  text-align: left;
+  position: relative;
+}
+
+.pain-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--gold);
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+.pain-item:hover::before { opacity: 1; }
+
+.pain-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.pain-quote::before { content: '\201C'; color: var(--gold); font-size: 20px; }
+.pain-quote::after  { content: '\201D'; color: var(--gold); font-size: 20px; }
+
+.pain-freq {
+  font-size: 11px;
+  color: var(--gray);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.pain-statement {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 40px;
+  background: var(--ink);
+  border-radius: 4px;
+  position: relative;
+}
+
+.pain-statement::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 4px 4px 0 0;
+}
+
+.pain-statement p {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: var(--white);
+  line-height: 1.7;
+}
+
+.pain-statement strong { color: var(--gold); font-style: normal; }
+
+/* ── QUÉ ES ── */
+.what {
+  background: var(--cream);
+  padding: 100px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.what-text .section-label { text-align: left; margin-bottom: 16px; }
+
+.what-text h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 900;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+.what-text p {
+  font-size: 15.5px;
+  color: var(--gray);
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+
+.what-text p strong { color: var(--ink); }
+
+.what-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.feat {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 20px;
+  background: var(--white);
+  border-radius: 4px;
+  border-left: 3px solid var(--gold);
+  transition: box-shadow .2s;
+}
+
+.feat:hover { box-shadow: 0 4px 24px rgba(0,0,0,.07); }
+
+.feat-icon {
+  width: 36px; height: 36px;
+  background: var(--goldl);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.feat-text h4 {
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+  letter-spacing: .02em;
+}
+
+.feat-text p {
+  font-size: 13px;
+  color: var(--gray);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.what-visual {
+  position: relative;
+}
+
+.method-card {
+  background: var(--ink);
+  border-radius: 8px;
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.method-card::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; right: -60px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(15,76,92,.4) 0%, transparent 70%);
+}
+
+.method-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 32px;
+  letter-spacing: .02em;
+}
+
+.method-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.method-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.step-number {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.step-content h5 {
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.step-content p {
+  font-size: 12px;
+  color: rgba(255,255,255,.5);
+  line-height: 1.6;
+}
+
+/* ── CONTENIDO ── */
+.contents {
+  background: var(--lgray);
+  padding: 100px 80px;
+  text-align: center;
+}
+
+.contents h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 900;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.contents-lead {
+  font-size: 16px;
+  color: var(--gray);
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 60px;
+}
+
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto 60px;
+}
+
+.module-card {
+  background: var(--white);
+  border-radius: 6px;
+  padding: 32px 28px;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.module-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.1);
+}
+
+.module-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gold);
+}
+
+.module-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.module-card h3 {
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.module-card p {
+  font-size: 13px;
+  color: var(--gray);
+  line-height: 1.7;
+}
+
+/* ── BONOS ── */
+.bonuses {
+  background: var(--ink);
+  padding: 100px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.bonuses::before {
+  content: 'BONOS';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: 18vw;
+  font-weight: 900;
+  color: rgba(255,255,255,.025);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.bonuses .section-label { color: var(--gold); margin-bottom: 16px; }
+
+.bonuses h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.bonuses-lead {
+  font-size: 16px;
+  color: rgba(255,255,255,.5);
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 60px;
+}
+
+.bonuses-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.bonus-card {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(160,120,32,.2);
+  border-radius: 6px;
+  padding: 36px 28px;
+  text-align: left;
+  transition: background .2s, border-color .2s;
+}
+
+.bonus-card:hover {
+  background: rgba(255,255,255,.08);
+  border-color: rgba(160,120,32,.5);
+}
+
+.bonus-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.bonus-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.bonus-card p {
+  font-size: 13px;
+  color: rgba(255,255,255,.5);
+  line-height: 1.7;
+}
+
+.bonus-value {
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* ── PARA QUIÉN ── */
+.forwhom {
+  background: var(--white);
+  padding: 100px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.forwhom h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 900;
+  color: var(--ink);
+  margin-bottom: 32px;
+}
+
+.check-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.check-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.check-icon {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--goldl);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.not-for {
+  background: var(--lgray);
+  border-radius: 6px;
+  padding: 32px;
+}
+
+.not-for h4 {
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 16px;
+}
+
+.not-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.not-icon {
+  color: var(--rust);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── TESTIMONIOS ── */
+.testimonials {
+  background: var(--cream);
+  padding: 100px 80px;
+  text-align: center;
+}
+
+.testimonials h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 900;
+  color: var(--ink);
+  margin-bottom: 60px;
+}
+
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.testi-card {
+  background: var(--white);
+  border-radius: 6px;
+  padding: 32px 28px;
+  text-align: left;
+  border-bottom: 3px solid var(--gold);
+}
+
+.testi-stars {
+  color: var(--gold);
+  font-size: 14px;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+.testi-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 14.5px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.testi-author {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.testi-role {
+  font-size: 11px;
+  color: var(--gray);
+  margin-top: 2px;
+}
+
+/* ── PRECIO ── */
+.pricing {
+  background: var(--ink);
+  padding: 100px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(160,120,32,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.pricing .section-label { color: var(--gold); margin-bottom: 16px; }
+
+.pricing h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 60px;
+}
+
+.price-box {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(160,120,32,.3);
+  border-radius: 8px;
+  padding: 56px 48px;
+  max-width: 520px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.price-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 8px 8px 0 0;
+}
+
+.price-includes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.price-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: rgba(255,255,255,.7);
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.price-item:last-child { border-bottom: none; }
+
+.price-item strong { color: var(--white); }
+
+.price-value {
+  font-size: 13px;
+  color: rgba(255,255,255,.3);
+  text-decoration: line-through;
+}
+
+.price-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(160,120,32,.3);
+  margin: 32px 0;
+}
+
+.price-total-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.price-today {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.price-today sup {
+  font-size: 1.4rem;
+  vertical-align: super;
+  color: var(--gold);
+}
+
+.price-note-small {
+  font-size: 12px;
+  color: rgba(255,255,255,.35);
+  margin-bottom: 36px;
+}
+
+.btn-primary-large {
+  display: block;
+  background: var(--gold);
+  color: var(--ink);
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: .04em;
+  padding: 20px 40px;
+  text-decoration: none;
+  border-radius: 3px;
+  transition: background .2s, transform .15s;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary-large:hover { background: #C09030; transform: translateY(-2px); }
+
+.price-guarantee {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(255,255,255,.4);
+}
+
+/* ── FAQ ── */
+.faq {
+  background: var(--cream);
+  padding: 100px 80px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 900;
+  color: var(--ink);
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--lgray);
+  padding: 24px 0;
+}
+
+.faq-q {
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-q::after {
+  content: '+';
+  font-size: 20px;
+  color: var(--gold);
+  font-weight: 300;
+}
+
+.faq-a {
+  font-size: 14.5px;
+  color: var(--gray);
+  line-height: 1.8;
+}
+
+/* ── CIERRE ── */
+.final-cta {
+  background: var(--teal);
+  padding: 100px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.final-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,.02) 0px,
+    rgba(255,255,255,.02) 1px,
+    transparent 1px,
+    transparent 40px
+  );
+  pointer-events: none;
+}
+
+.final-cta h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.final-cta h2 em { font-style: italic; color: var(--gold); }
+
+.final-cta p {
+  font-size: 17px;
+  color: rgba(255,255,255,.65);
+  max-width: 560px;
+  margin: 0 auto 48px;
+  position: relative;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  padding: 40px 80px;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,.25);
+  line-height: 2;
+}
+
+footer a { color: rgba(255,255,255,.4); text-decoration: none; }
+footer a:hover { color: var(--gold); }
+
+/* ── ANIMACIONES ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-left { padding: 60px 40px; }
+  .what, .forwhom { grid-template-columns: 1fr; gap: 40px; padding: 60px 32px; }
+  .pain, .contents, .bonuses, .testimonials, .pricing, .final-cta { padding: 60px 32px; }
+  .faq { padding: 60px 32px; }
+  .pain-grid, .modules-grid, .bonuses-grid, .testi-grid { grid-template-columns: 1fr; }
+  footer { padding: 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Ebook · Desarrollo Personal · Acción Sostenida</div>
+    <h1>Sabes lo que tienes<br>que hacer…<br><em>¿por qué no lo haces?</em></h1>
+    <p class="hero-subtitle">El sistema que rompe el ciclo del autosabotaje para siempre</p>
+    <p class="hero-desc">
+      No es falta de motivación. No es pereza. No es que no seas suficiente.<br><br>
+      Es un <strong>patrón neurológico específico</strong> que puedes identificar, entender y — por primera vez — desactivar con un sistema de 4 pasos basado en ciencia real.
+    </p>
+    <div class="cta-group">
+      <a href="#pricing" class="btn-primary">Quiero el ebook ahora →</a>
+      <span class="cta-note">Acceso inmediato · PDF descargable · Garantía 7 días</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="book-mockup">
+      <div class="book-cover">
+        <div class="book-label">Desarrollo personal · Productividad</div>
+        <div class="book-title">Sabes lo que<br>tienes que hacer…<br><em>¿por qué no<br>lo haces?</em></div>
+        <div class="book-sub">El sistema de 4 pasos para romper<br>el ciclo del autosabotaje</div>
+        <div class="book-divider"></div>
+        <div class="book-includes">Incluye: 3 Bonos exclusivos<br>Plan de 7 días · Rutina de emergencia · Contrato de recuperación</div>
+        <div class="book-badge">
+          <span>Solo</span>
+          <span>$17</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DOLOR ── -->
+<section class="pain">
+  <div class="section-label">¿Te reconoces aquí?</div>
+  <h2>El problema no es que no lo <em>sepas.</em><br>El problema es que no lo haces.</h2>
+  <p class="pain-lead">Millones de personas conocen exactamente qué necesitan hacer. Y aun así, no lo hacen. ¿Por qué?</p>
+
+  <div class="pain-grid">
+    <div class="pain-item reveal">
+      <p class="pain-quote">Mañana empiezo de verdad. Hoy no es el momento ideal.</p>
+      <div class="pain-freq">Se repite: cada semana</div>
+    </div>
+    <div class="pain-item reveal">
+      <p class="pain-quote">Tengo todo planeado. Solo me falta ejecutar. Llevaré así meses.</p>
+      <div class="pain-freq">Se repite: cada mes</div>
+    </div>
+    <div class="pain-item reveal">
+      <p class="pain-quote">Empiezo con todo. A las dos semanas abandono. Vuelvo a empezar.</p>
+      <div class="pain-freq">Se repite: cada año</div>
+    </div>
+    <div class="pain-item reveal">
+      <p class="pain-quote">Cuando tenga más energía, más tiempo, más dinero — entonces actúo.</p>
+      <div class="pain-freq">El momento nunca llega</div>
+    </div>
+    <div class="pain-item reveal">
+      <p class="pain-quote">Me siento culpable por no avanzar. Eso me paraliza más. Un ciclo sin fin.</p>
+      <div class="pain-freq">Ciclo de culpa-inacción</div>
+    </div>
+    <div class="pain-item reveal">
+      <p class="pain-quote">Sé perfectamente lo que tengo que hacer. Simplemente no lo hago.</p>
+      <div class="pain-freq">La frase que define todo</div>
+    </div>
+  </div>
+
+  <div class="pain-statement reveal">
+    <p>Si alguna de estas frases te resulta familiar, no es un problema de carácter. Es un patrón neurológico documentado — y tiene solución. <strong>Pero no la solución que has intentado antes.</strong></p>
+  </div>
+</section>
+
+<!-- ── QUÉ ES ── -->
+<section style="background:var(--cream); padding: 100px 80px;">
+  <div class="what" style="padding:0; margin:0 auto;">
+    <div class="what-text reveal">
+      <div class="section-label">El método</div>
+      <h2>No es motivación.<br>Es un sistema de 4 pasos.</h2>
+      <p>La motivación es la solución equivocada al problema equivocado. <strong>No necesitas más ganas.</strong> Necesitas un sistema que funcione exactamente cuando no tienes ganas.</p>
+      <p>Este ebook te da ese sistema — basado en la neurociencia del comportamiento, en la investigación de Kahneman sobre el Sistema 1 y el Sistema 2, y en los principios del ego depletion de Baumeister.</p>
+      <p>No son frases motivadoras. Son protocolos ejecutables que puedes usar hoy mismo.</p>
+      <div class="what-features">
+        <div class="feat reveal">
+          <div class="feat-icon">🧠</div>
+          <div class="feat-text">
+            <h4>Diagnóstico de tu patrón</h4>
+            <p>Identifica exactamente qué tipo de autosabotaje es el tuyo — y por qué los métodos genéricos no funcionan para ti.</p>
+          </div>
+        </div>
+        <div class="feat reveal">
+          <div class="feat-icon">⚡</div>
+          <div class="feat-text">
+            <h4>Sistema de 4 pasos</h4>
+            <p>Un método concreto, paso a paso, que funciona aunque no tengas motivación ni fuerza de voluntad.</p>
+          </div>
+        </div>
+        <div class="feat reveal">
+          <div class="feat-icon">🔄</div>
+          <div class="feat-text">
+            <h4>Protocolo de recuperación</h4>
+            <p>Qué hacer cuando falles — porque fallarás, y eso está diseñado dentro del sistema.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="what-visual reveal">
+      <div class="method-card">
+        <div class="method-title">El Sistema de 4 Pasos</div>
+        <div class="method-steps">
+          <div class="method-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h5>Detectar el disparador</h5>
+              <p>Identificar el momento exacto en que el saboteador actúa — antes de que tome el control.</p>
+            </div>
+          </div>
+          <div class="method-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h5>Reducir la fricción</h5>
+              <p>Diseñar el entorno para que actuar sea más fácil que no actuar. Sin fuerza de voluntad.</p>
+            </div>
+          </div>
+          <div class="method-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h5>Acción mínima ejecutable</h5>
+              <p>La acción más pequeña que activa el momentum. Tan pequeña que es imposible fallar.</p>
+            </div>
+          </div>
+          <div class="method-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h5>Sostener sin motivación</h5>
+              <p>El sistema de repetición y recuperación que convierte la acción en identidad.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTENIDO ── -->
+<section class="contents">
+  <div class="section-label reveal">Contenido del ebook</div>
+  <h2 class="reveal">Lo que encontrarás dentro</h2>
+  <p class="contents-lead reveal">6 módulos que van desde el diagnóstico hasta la identidad de quien ya actúa</p>
+
+  <div class="modules-grid">
+    <div class="module-card reveal">
+      <div class="module-num">Módulo 1</div>
+      <h3>¿Por qué sabes y no haces?</h3>
+      <p>La neurociencia del autosabotaje. Por qué la fuerza de voluntad no funciona. El modelo de Kahneman aplicado a tu vida.</p>
+    </div>
+    <div class="module-card reveal">
+      <div class="module-num">Módulo 2</div>
+      <h3>Tu diagnóstico personal</h3>
+      <p>Los 7 patrones de autosabotaje más comunes. Cuál es el tuyo. Por qué los métodos genéricos no funcionan para tu perfil específico.</p>
+    </div>
+    <div class="module-card reveal">
+      <div class="module-num">Módulo 3</div>
+      <h3>Los 7 errores que cometes</h3>
+      <p>Los errores que cometen el 90% de las personas al intentar cambiar — y cómo evitarlos desde el primer día.</p>
+    </div>
+    <div class="module-card reveal">
+      <div class="module-num">Módulo 4</div>
+      <h3>El método de 4 pasos</h3>
+      <p>El sistema completo. Paso a paso. Aplicado a finanzas, relaciones y trabajo. Con ejemplos reales y protocolos ejecutables.</p>
+    </div>
+    <div class="module-card reveal">
+      <div class="module-num">Módulo 5</div>
+      <h3>Las 7 herramientas</h3>
+      <p>Las herramientas concretas para implementar el método: si-entonces, el Cuaderno de Acción, el ritual de recuperación y más.</p>
+    </div>
+    <div class="module-card reveal">
+      <div class="module-num">Módulo 6</div>
+      <h3>Sostener el cambio</h3>
+      <p>Cómo construir la identidad de quien ya actúa. El Manifiesto del que ya actúa. Qué hacer después del día 30.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── BONOS ── -->
+<section class="bonuses">
+  <div class="section-label">Incluido con tu compra</div>
+  <h2 class="reveal">3 Bonos exclusivos</h2>
+  <p class="bonuses-lead reveal">Diseñados para implementar el método desde el primer día</p>
+
+  <div class="bonuses-grid">
+    <div class="bonus-card reveal">
+      <div class="bonus-label">Bono 1</div>
+      <h3>Plan de Acción de 7 Días</h3>
+      <p>Tu hoja de ruta para la primera semana. Con tarjetas diarias, los 5 disparadores del sabotaje y el checklist de 30 días con guía de interpretación.</p>
+      <div class="bonus-value">Valor: $12</div>
+    </div>
+    <div class="bonus-card reveal">
+      <div class="bonus-label">Bono 2</div>
+      <h3>Rutina de Emergencia de 10 Minutos</h3>
+      <p>El protocolo de 4 pasos para los días en que todo se derrumba. Para cuando la motivación desaparece y necesitas actuar igual.</p>
+      <div class="bonus-value">Valor: $9</div>
+    </div>
+    <div class="bonus-card reveal">
+      <div class="bonus-label">Bono 3</div>
+      <h3>Contrato de Recuperación</h3>
+      <p>El sistema de recuperación cuando fallas. Porque fallarás — y eso está diseñado dentro del método. Este contrato es tu plan de vuelta.</p>
+      <div class="bonus-value">Valor: $9</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PARA QUIÉN ── -->
+<section style="background:var(--white); padding: 100px 80px;">
+  <div class="forwhom" style="padding:0; margin:0 auto;">
+    <div class="reveal">
+      <h2>Este ebook es para ti si…</h2>
+      <div class="check-list">
+        <div class="check-item"><div class="check-icon">✓</div><span>Sabes exactamente qué necesitas hacer y llevas tiempo sin hacerlo.</span></div>
+        <div class="check-item"><div class="check-icon">✓</div><span>Has intentado motivarte, planificarte y comprometerte — y funciona unos días.</span></div>
+        <div class="check-item"><div class="check-icon">✓</div><span>Empiezas proyectos con energía y los abandonas en la meseta.</span></div>
+        <div class="check-item"><div class="check-icon">✓</div><span>La culpa por no avanzar te paraliza más que la falta de tiempo.</span></div>
+        <div class="check-item"><div class="check-icon">✓</div><span>Quieres un sistema que funcione aunque no tengas ganas.</span></div>
+        <div class="check-item"><div class="check-icon">✓</div><span>Estás cansado de empezar de nuevo cada lunes o cada 1 de enero.</span></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="not-for">
+        <h4>Este ebook NO es para ti si…</h4>
+        <div class="not-item"><div class="not-icon">✗</div><span>Buscas motivación para sentirte bien momentáneamente.</span></div>
+        <div class="not-item"><div class="not-icon">✗</div><span>Quieres resultados sin cambiar ningún comportamiento.</span></div>
+        <div class="not-item"><div class="not-icon">✗</div><span>No estás dispuesto a aplicar lo que lees.</span></div>
+        <div class="not-item"><div class="not-icon">✗</div><span>Buscas un libro de autoayuda con frases bonitas para subrayar.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIOS ── -->
+<section class="testimonials">
+  <h2 class="reveal">Lo que dicen quienes ya lo aplicaron</h2>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Llevo 3 años intentando crear el hábito de ejercicio. En 3 semanas con este método, por primera vez lo sostengo sin que dependa de si tengo ganas."</p>
+      <div class="testi-author">María G.</div>
+      <div class="testi-role">Consultora, Madrid</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"No es un libro de motivación. Es un sistema real. La diferencia entre este y todos los que leí antes es que funciona los días que menos ganas tienes."</p>
+      <div class="testi-author">Carlos M.</div>
+      <div class="testi-role">Emprendedor, México</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"El módulo del diagnóstico me cambió la perspectiva completamente. Entender MI patrón específico fue lo que ningún otro libro me había dado."</p>
+      <div class="testi-author">Valentina R.</div>
+      <div class="testi-role">Diseñadora, Buenos Aires</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRECIO ── -->
+<section class="pricing" id="pricing">
+  <div class="section-label">Tu inversión hoy</div>
+  <h2 class="reveal">Todo lo que incluye tu compra</h2>
+
+  <div class="price-box reveal">
+    <div class="price-includes">
+      <div class="price-item">
+        <strong>Ebook completo — 6 módulos</strong>
+        <span class="price-value">$40</span>
+      </div>
+      <div class="price-item">
+        <strong>Bono 1 — Plan de Acción 7 Días</strong>
+        <span class="price-value">$12</span>
+      </div>
+      <div class="price-item">
+        <strong>Bono 2 — Rutina de Emergencia</strong>
+        <span class="price-value">$9</span>
+      </div>
+      <div class="price-item">
+        <strong>Bono 3 — Contrato de Recuperación</strong>
+        <span class="price-value">$9</span>
+      </div>
+    </div>
+    <div class="price-divider"></div>
+    <div class="price-total-label">Tu precio hoy</div>
+    <div class="price-today"><sup>$</sup>17</div>
+    <div class="price-note-small">Pago único · Acceso inmediato · PDF descargable</div>
+    <a href="TU_ENLACE_HOTMART_AQUI" class="btn-primary-large">Quiero acceso inmediato →</a>
+    <div class="price-guarantee">
+      🔒 &nbsp; Garantía de devolución de 7 días — sin preguntas
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="faq">
+  <h2 class="reveal">Preguntas frecuentes</h2>
+
+  <div class="faq-item reveal">
+    <div class="faq-q">¿En qué formato recibiré el ebook?</div>
+    <p class="faq-a">En PDF de alta calidad, descargable inmediatamente después del pago. Compatible con cualquier dispositivo — ordenador, tablet o móvil.</p>
+  </div>
+  <div class="faq-item reveal">
+    <div class="faq-q">¿Cuánto tiempo necesito para aplicarlo?</div>
+    <p class="faq-a">El método está diseñado para personas con poco tiempo. La acción mínima que propone el sistema lleva 2 a 5 minutos al día. El ebook se lee en 2 a 3 horas.</p>
+  </div>
+  <div class="faq-item reveal">
+    <div class="faq-q">¿Funciona si he intentado otros métodos y fallé?</div>
+    <p class="faq-a">Especialmente para ti. Este sistema parte del diagnóstico de por qué los métodos anteriores no funcionaron para tu perfil específico. No es un método genérico — es calibrado para tu patrón.</p>
+  </div>
+  <div class="faq-item reveal">
+    <div class="faq-q">¿Qué incluye exactamente la garantía?</div>
+    <p class="faq-a">7 días desde la compra. Si aplicas el método y sientes que no es para ti, te devolvemos el 100% del pago sin preguntas. Sin burocracia, sin condiciones.</p>
+  </div>
+  <div class="faq-item reveal">
+    <div class="faq-q">¿Hay algún pago adicional después?</div>
+    <p class="faq-a">No. Es un pago único. El ebook y los 3 bonos son tuyos para siempre.</p>
+  </div>
+</section>
+
+<!-- ── CIERRE ── -->
+<section class="final-cta">
+  <h2 class="reveal">El momento de cambiar<br>no es cuando estés listo.<br>Es <em>ahora.</em></h2>
+  <p class="reveal">Llevas tiempo sabiendo lo que tienes que hacer. Este es el sistema para hacerlo. Hoy. Sin esperar a tener más motivación, más tiempo o más ganas.</p>
+  <a href="#pricing" class="btn-primary reveal" style="display:inline-block; font-size:16px; padding:20px 48px;">Quiero el ebook ahora →</a>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2026 · Todos los derechos reservados</p>
+  <p style="margin-top:8px">
+    <a href="#">Política de privacidad</a> &nbsp;·&nbsp;
+    <a href="#">Términos y condiciones</a> &nbsp;·&nbsp;
+    <a href="#">Contacto</a>
+  </p>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(el => {
+    if (el.isIntersecting) {
+      el.target.classList.add('visible');
+      observer.unobserve(el.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
